@@ -27,14 +27,11 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
       "userSymbol": "Drive",
       "serviceId": "drive",
       "version": "v2"
-    }, 
-    ```
-    {
-      "userSymbol": "BigQuery",
-      "serviceId": "bigquery",
-      "version": "v2"
+    }, {
+      ![Yellow text]"userSymbol": "BigQuery",
+      ![Yellow text]"serviceId": "bigquery",
+      ![Yellow text]"version": "v2"
     }]
-    ```
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
