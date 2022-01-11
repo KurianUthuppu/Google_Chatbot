@@ -18,8 +18,8 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
 
 ### Chatbot code
 - In Google scripts homepage, click new project and give the requisite name
-- Modify the code in appsscript.json tab as below:
-> {
+- Modify the code in appsscript.json tab with the highlighted code in the box below:
+> {  
 >    "timeZone": "Asia/Kolkata",  
 >    "dependencies": {  
 >      "enabledAdvancedServices": [{  
@@ -36,6 +36,6 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
 >    "runtimeVersion": "V8",  
 >    "chat": {  
 >    }  
->  }  
+>  }    
 
 
