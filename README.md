@@ -19,23 +19,22 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
 ### Chatbot code
 - In Google scripts homepage, click new project and give the requisite name
 - Modify the code in appsscript.json tab as below:
-```
-{
-  "timeZone": "Asia/Kolkata",
-  "dependencies": {
-    "enabledAdvancedServices": [{
-      "userSymbol": "Drive",
-      "serviceId": "drive",
-      "version": "v2"
-    }, {
-      ![Yellow text]"userSymbol": "BigQuery",
-      ![Yellow text]"serviceId": "bigquery",
-      ![Yellow text]"version": "v2"
-    }]
-  },
-  "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8",
-  "chat": {
-  }
-}
-```
+> {
+>    "timeZone": "Asia/Kolkata",
+>    "dependencies": {
+>      "enabledAdvancedServices": [{
+>        "userSymbol": "Drive",
+>        "serviceId": "drive",
+>        "version": "v2"
+>      }, {
+>>      "userSymbol": "BigQuery",
+>>      "serviceId": "bigquery",
+>>      "version": "v2"
+>>      }]
+>    },
+>    "exceptionLogging": "STACKDRIVER",
+>    "runtimeVersion": "V8",
+>    "chat": {
+>    }
+>  }
+
