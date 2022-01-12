@@ -56,6 +56,8 @@ function onRemoveFromSpace(event) {}
 function onAddToSpace(event) {
   var message = "";
 
+# The code is very simple and self-explanatory - "Thank you for adding me to a DM <User-Name>" or "Thank you for adding me to <chat-room name> and you said <message>"
+# "and you said <message>" will be displayed in case the user is entering any message upon adding the chatbot to the space
   if (event.space.singleUserBotDm) {
     message = "Thank you for adding me to a DM, " + event.user.displayName + "!";
   } else {
@@ -70,14 +72,73 @@ function onAddToSpace(event) {
 
   return { "text": message };
 }
-
-/**
- * Responds to a REMOVED_FROM_SPACE event in Hangouts Chat.
- *
- * @param {Object} event the event object from Hangouts Chat
- */
+# Displays the message "Bot removed from <space-name>" upon removing the bot from the space
 function onRemoveFromSpace(event) {
   console.info("Bot removed from ",
       (event.space.name ? event.space.name : "this chat"));
 }
+```
+
+#### Adding code towards querying the data from big-query
+- You may compare the user entries to specific word format to execute requisite data queries
+- Example code used in one of my projects is shown below:
+```
+# The below code retrieves the basic personal details of the farmer being queried using his/her unique 9 digit id asssigned 
+if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) {
+        var input = event.message.text
+        var UID = input.substring(input.indexOf("V"), input.length);
+
+      if (UID.length == 9) {
+
+        var projectId = '<project-id in big-query (ex:foo-bar-123)';
+      
+        var request = {
+          query: 'SELECT First_Name, Last_Name, Spouse___Father_name, Gender, Date_of_birth, Age, Marital_Status, Mobile_No, WHERE UID="' + UID + '"GROUP BY UID, VLCC_NAME, First_Name, Last_Name, Spouse___Father_name, Gender, Date_of_birth, Age, Marital_Status, Mobile_No LIMIT 1'
+        };
+        var queryResults = BigQuery.Jobs.query(request, projectId);
+        var jobId = queryResults.jobReference.jobId;
+      
+        // Check on status of the Query Job.
+        var sleepTimeMs = 500;
+        while (!queryResults.jobComplete) {
+          Utilities.sleep(sleepTimeMs);
+          sleepTimeMs *= 2;
+          queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId);
+        }
+      
+        // Get all the rows of results.
+        var rows = queryResults.rows;
+        while (queryResults.pageToken) {
+          queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId, {
+            pageToken: queryResults.pageToken
+          });
+          rows = rows.concat(queryResults.rows);
+        }
+        
+        if (rows) {
+          var data = new Array(rows.length);
+          var headers = ["First Name:", "Last Name:", "Spouse/Father Name:", "Gender:", "DOB (YYYY-MM-DD):", "Age:", "Marital Status:", "Mobile No:"];
+          var message = "";
+          for (var i = 0; i < rows.length; i++) {
+          var cols = rows[i].f; data[i] = new Array(cols.length); 
+          for (var j = 0; j < cols.length; j++) {
+            data[i][j] = cols[j].v; 
+            message = message + headers[j] + " " + data[i][j] + "\n";
+            }
+          }
+        
+        return { "text": message };
+          
+        }        
+        else {
+          return { "text": "Sorry, no records found" };
+        }   
+      }
+      else {
+        var name = "";
+        name = event.user.displayName; 
+        var message = "@" + name + ": Sorry, wrong/missing UID. Please type in the correct UID (Ex: V00100014) along with \"@mU FB \".\n(Ex:@mU FB V00100014)" ;
+        return { "text": message };
+      }    
+    }
 ```
