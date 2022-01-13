@@ -10,7 +10,8 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
 - Google chat login - https://mail.google.com/chat/u/1/#chat/welcome  
 - Big-Query/GCP platform login - https://cloud.google.com/?authuser=1  
 - Google scripts - https://script.google.com/u/1/home/start  
-- Useful videos - https://www.youtube.com/watch?v=QY1Yfk2JUJI&list=PL42xwJRIG3xCm6O85pd91tQxgxGcq82m4
+- Useful videos (Appscripts) - https://www.youtube.com/watch?v=QY1Yfk2JUJI&list=PL42xwJRIG3xCm6O85pd91tQxgxGcq82m4
+- Useful docs (Chatbot) - https://developers.google.com/chat/how-tos/bots-apps-script
 
 ### Setup
 - Setup your project in GCP and load datatables to your Big-Query datasets
