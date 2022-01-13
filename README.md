@@ -10,6 +10,7 @@ Creating a chatbot that extracts requisite data from Big-Query dataset and share
 - Google chat login - https://mail.google.com/chat/u/1/#chat/welcome  
 - Big-Query/GCP platform login - https://cloud.google.com/?authuser=1  
 - Google scripts - https://script.google.com/u/1/home/start  
+- Useful videos - https://www.youtube.com/watch?v=QY1Yfk2JUJI&list=PL42xwJRIG3xCm6O85pd91tQxgxGcq82m4
 
 ### Setup
 - Setup your project in GCP and load datatables to your Big-Query datasets
@@ -83,22 +84,24 @@ function onRemoveFromSpace(event) {
 - You may compare the user entries to specific word format to execute requisite data queries
 - Example code used in one of my projects is shown below:
 ```
-# The below code retrieves the basic personal details of the farmer being queried using his/her unique 9 digit id asssigned 
+# The below code retrieves the basic personal details of the farmer being queried using his/her unique 9 digit id (UID) asssigned 
 if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) {
         var input = event.message.text
         var UID = input.substring(input.indexOf("V"), input.length);
-
+        
+      # Checks whether the UID length is correct or not
       if (UID.length == 9) {
 
         var projectId = '<project-id in big-query (ex:foo-bar-123)';
-      
+        
+        # Runs the below query in the project mentioned
         var request = {
           query: 'SELECT First_Name, Last_Name, Spouse___Father_name, Gender, Date_of_birth, Age, Marital_Status, Mobile_No, WHERE UID="' + UID + '"GROUP BY UID, VLCC_NAME, First_Name, Last_Name, Spouse___Father_name, Gender, Date_of_birth, Age, Marital_Status, Mobile_No LIMIT 1'
         };
         var queryResults = BigQuery.Jobs.query(request, projectId);
         var jobId = queryResults.jobReference.jobId;
       
-        // Check on status of the Query Job.
+        # Check on status of the Query Job.
         var sleepTimeMs = 500;
         while (!queryResults.jobComplete) {
           Utilities.sleep(sleepTimeMs);
@@ -106,7 +109,7 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
           queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId);
         }
       
-        // Get all the rows of results.
+        # Get all the rows of results.
         var rows = queryResults.rows;
         while (queryResults.pageToken) {
           queryResults = BigQuery.Jobs.getQueryResults(projectId, jobId, {
@@ -115,6 +118,7 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
           rows = rows.concat(queryResults.rows);
         }
         
+        # Formatting the message to be displayed
         if (rows) {
           var data = new Array(rows.length);
           var headers = ["First Name:", "Last Name:", "Spouse/Father Name:", "Gender:", "DOB (YYYY-MM-DD):", "Age:", "Marital Status:", "Mobile No:"];
@@ -129,11 +133,15 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
         
         return { "text": message };
           
-        }        
+        }   
+        
+        # If query returns no results
         else {
           return { "text": "Sorry, no records found" };
         }   
       }
+      
+      # If the UID length isn't matching
       else {
         var name = "";
         name = event.user.displayName; 
