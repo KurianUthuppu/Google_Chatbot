@@ -158,10 +158,10 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
   > This id should be used for the initial testing stage
   > Note: Other users in the google chat space maynot be able to use chatbot even if the access is given unless a new version id is created using create button
   >> To the above, click create button and type:
-     - The deployment name
-     - Select appsscript
-     - Version - new
-     - Version comment in the description cell
+  >> - The deployment name
+  >> - Select appsscript
+  >> - Version - new
+  >> - Version comment in the description cell
 
 #### Integration of scripts with google chat api
 - Login to your GCP platfrom
@@ -182,3 +182,9 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
   - You may add the email-ids of specific personnel under the head - 'Specific people and groups in your domain'
 - Click Save
 
+#### Launching the google chatbot
+- Go to https://chat.google.com/ and login using your linked account
+- Create a new space if required
+- Click the chat space and then click the chat-space heading to select 'Add people, groups or bots'
+- Type in the bot name and save
+- You can call the chat bot using '@ <bot-name>' and type in the specific request
