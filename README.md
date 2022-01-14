@@ -151,3 +151,34 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
       }    
     }
 ```
+#### Chat-bot deployment
+- Once the code entry is completed and checked, click Publish button on the top
+- Click deploy from manifest
+- Click GetId from latest version (Head) Version 0
+  > This id should be used for the initial testing stage
+  > Note: Other users in the google chat space maynot be able to use chatbot even if the access is given unless a new version id is created using create button
+  >> To the above, click create button and type:
+     - The deployment name
+     - Select appsscript
+     - Version - new
+     - Version comment in the description cell
+
+#### Integration of scripts with google chat api
+- Login to your GCP platfrom
+- Select the project to which you want to connect the google chat api
+- Type in google chat api in the search button on the top and select the same
+- Click manage and select configuration
+- Type in the name that you want to give to your chatbot in the bot-name cell
+- You can give any avatar image; sample image here -> https://bit.ly/3gJGxBf
+- Type in the requisite description in the description cell
+- Click both the following boxes
+  - Bot can be messaged directly
+  - Bot works in spaces with multiple users
+- Click apps script project under connection settings
+- Give the deployment id:
+  - Provide id from the head for testing purpose else give the id from the new version created during the deployment step (Refer above)
+- In permissions:
+  - You may select either the entire organization, or
+  - You may add the email-ids of specific personnel under the head - 'Specific people and groups in your domain'
+- Click Save
+
