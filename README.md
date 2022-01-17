@@ -188,4 +188,5 @@ if (event.message.text.includes("@mU FB") || event.message.text.includes("FB")) 
 - Click the chat space and then click the chat-space heading to select 'Add people, groups or bots'
 - Type in the bot name and save
 - You can call the chat bot using '@ <bot-name>' and type in the specific request
-- A sreenshot of the google chatbot 'mU' is shared here -> https://github.com/KurianUthuppu/Google_Chatbot/blob/e69a021024b87e835fb0bc718257f5045faa6d7d/Google_Chat-bot.jpg
+- A sreenshot of the google chatbot 'mU' is shared below
+  ![alt text](https://github.com/KurianUthuppu/Google_Chatbot/blob/e69a021024b87e835fb0bc718257f5045faa6d7d/Google_Chat-bot.jpg)
